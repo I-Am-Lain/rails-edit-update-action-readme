@@ -3,12 +3,12 @@ class ArticlesController < ApplicationController
     @articles = Article.all
   end
 
-  def show
-    @article = Article.find(params[:id])
+  def new
+    render "new_or_edit"
   end
 
-  def new
-    @article = Article.new
+  def show
+    @article = Article.find(params[:id])
   end
 
   def create
@@ -20,4 +20,16 @@ class ArticlesController < ApplicationController
   end
 
   # add edit and update methods here
+
+  def edit
+    @article = Article.find(params[:id])
+    render "new_or_edit"
+  end
+  
+  def update
+    @article = Article.find(params[:id])
+    @article.update(title: params[:article][:title], description: params[:article][:description])
+    redirect_to article_path(@article)
+  end
+  
 end
